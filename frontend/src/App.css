@@ -21,3 +21,28 @@
   background-color: skyblue;
 
 }
+.register{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.inputBox{
+  text-align: center;
+  display: block;
+  margin: 20px;
+  padding: 13px;
+  width: 300px;
+  border: 1px solid skyblue;
+  border-radius: 5px;
+}
+.signUpBtn{
+  padding: 13px;
+  background-color: skyblue;
+  border: hidden;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 10rem;
+}
