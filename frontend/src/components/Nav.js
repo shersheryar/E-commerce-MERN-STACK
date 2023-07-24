@@ -9,7 +9,8 @@ const Nav = () => {
   };
   return (
     <div>
-      <ul className="nav-bar"> 
+      
+      <ul className="nav-bar">
         <li>
           <Link to={"/"}>Products</Link>
         </li>
@@ -22,15 +23,24 @@ const Nav = () => {
         <li>
           <Link to={"/profile"}>Profile</Link>
         </li>
-        <li>
-          {auth ? (
-            <Link onClick={logout} to={"/signup"}>
+
+        {auth ? (
+          <li>
+            {" "}
+            <Link onClick={logout} to={"/login"}>
               Logout
             </Link>
-          ) : (
-            <Link to={"/signup"}>Sign up</Link>
-          )}
-        </li>
+          </li>
+        ) : (
+          <>
+            <li>
+              <Link to={"/signup"}>Sign up</Link>
+            </li>
+            <li>
+              <Link to={"/login"}>Login</Link>
+            </li>
+          </>
+        )}
       </ul>
     </div>
   );

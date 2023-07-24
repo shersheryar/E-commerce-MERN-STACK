@@ -21,6 +21,14 @@
   background-color: skyblue;
 
 }
+.login{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  margin-top: 5rem;
+}
+
 .register{
   display: flex;
   flex-direction: column;
@@ -38,6 +46,15 @@
   border-radius: 5px;
 }
 .signUpBtn{
+  padding: 13px;
+  background-color: skyblue;
+  border: hidden;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 10rem;
+}
+.loginBtn{
   padding: 13px;
   background-color: skyblue;
   border: hidden;
