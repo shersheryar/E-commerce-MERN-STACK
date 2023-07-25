@@ -10,8 +10,18 @@ const ProductList = () => {
   const getProducts = async () => {
     let result = await fetch("http://localhost:5005/products");
     result = await result.json();
-    console.log(products);
+    // console.log(products);
     setProducts(result);
+  };
+  const deleteProduct = async (id) => {
+    let result = await fetch(`http://localhost:5005/product/${id}`, {
+      method: "delete",
+    });
+    result = await result.json();
+    if (result) {
+      alert("Record is deleted");
+      getProducts();
+    }
   };
   return (
     <div className="product-list">
@@ -22,14 +32,18 @@ const ProductList = () => {
         <li className="head">Price</li>
         <li className="head">Category</li>
         <li className="head">Company</li>
+        <li className="head">Operation</li>
       </ul>
       {products.map((item, index) => (
-        <ul>
+        <ul key={item._id}>
           <li>{index + 1}</li>
           <li>{item.name}</li>
           <li>${item.price}</li>
           <li>{item.category}</li>
           <li>{item.company}</li>
+          <li>
+            <button onClick={() => deleteProduct(item._id)}>Delete</button>
+          </li>
         </ul>
       ))}
     </div>
