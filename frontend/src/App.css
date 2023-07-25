@@ -79,6 +79,16 @@
   width: 10rem;
   margin-top: 1rem;
 }
+.update-product-btn{
+  padding: 13px;
+  background-color: skyblue;
+  border: hidden;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 10rem;
+  margin-top: 1rem;
+}
 .nav-right{
   text-align: right;
 }
