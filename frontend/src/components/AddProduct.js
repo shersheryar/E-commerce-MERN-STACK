@@ -5,8 +5,13 @@ const AddProduct = () => {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [company, setCompany] = useState("");
+  const [error, setError] = useState(false);
 
   const addProduct = async () => {
+    if (!name || !price || !category || !company) {
+      setError(true);
+      return false;
+    }
     // console.log(name, price, category, company);
     const userId = JSON.parse(localStorage.getItem("user"))._id;
     // console.log(userId);
@@ -30,6 +35,9 @@ const AddProduct = () => {
         onChange={(e) => setName(e.target.value)}
         value={name}
       />
+      {error && !name && (
+        <span className="invalid-input">Enter valid name</span>
+      )}
       <input
         className="inputBox"
         type="text"
@@ -37,6 +45,9 @@ const AddProduct = () => {
         onChange={(e) => setPrice(e.target.value)}
         value={price}
       />
+      {error && !price && (
+        <span className="invalid-input">Enter valid price</span>
+      )}
       <input
         className="inputBox"
         type="text"
@@ -44,6 +55,9 @@ const AddProduct = () => {
         onChange={(e) => setCategory(e.target.value)}
         value={category}
       />
+      {error && !category && (
+        <span className="invalid-input">Enter valid category</span>
+      )}
       <input
         className="inputBox"
         type="text"
@@ -51,6 +65,9 @@ const AddProduct = () => {
         onChange={(e) => setCompany(e.target.value)}
         value={company}
       />
+      {error && !company && (
+        <span className="invalid-input">Enter valid company</span>
+      )}
       <button className="add-product-btn" type="button" onClick={addProduct}>
         Add Product
       </button>
