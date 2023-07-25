@@ -49,4 +49,14 @@ app.delete("/product/:id", async (req, res) => {
   const result = await Product.deleteOne({ _id: id });
   res.send(result);
 });
+
+app.get("/product/:id", async (req, res) => {
+  let result = await Product.findOne({ _id: req.params.id });
+  if (result) {
+    res.send(result);
+  } else {
+    res.send({ result: "No record found." });
+  }
+});
+
 app.listen(5005);
