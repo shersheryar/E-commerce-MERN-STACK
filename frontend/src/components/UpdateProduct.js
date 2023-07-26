@@ -13,7 +13,11 @@ const AddProduct = () => {
   }, []);
 
   const getProductDetail = async () => {
-    let result = await fetch(`http://localhost:5005/product/${params.id}`);
+    let result = await fetch(`http://localhost:5005/product/${params.id}`, {
+      headers: {
+        authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      },
+    });
     result = await result.json();
     setName(result.name);
     setPrice(result.price);
@@ -23,12 +27,14 @@ const AddProduct = () => {
   const updateProduct = async () => {
     // console.log(name, price, category, company);
     const userId = JSON.parse(localStorage.getItem("user"))._id;
+
     // console.log(userId);
     let result = await fetch(`http://localhost:5005/product/${params.id}`, {
       method: "put",
       body: JSON.stringify({ name, price, category, company }),
       headers: {
         "Content-Type": "application/json",
+        authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
       },
     });
     result = await result.json();

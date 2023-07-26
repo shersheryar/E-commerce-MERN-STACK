@@ -40,27 +40,31 @@ app.post("/login", async (req, res) => {
   }
 });
 
+//----------------addd product=----------------
 app.post("/add-product", verifyToken, async (req, res) => {
   let product = new Product(req.body);
   let result = await product.save();
   res.send(result);
 });
 
+//==================show products============
 app.get("/products", verifyToken, async (req, res) => {
   let products = await Product.find();
-  console.log(products);
   if (products.length > 0) {
     res.send(products);
   } else {
     res.send({ result: "No Products found" });
   }
 });
+
+////----------delete product ==================
 app.delete("/product/:id", verifyToken, async (req, res) => {
   const id = req.params.id;
   const result = await Product.deleteOne({ _id: id });
   res.send(result);
 });
 
+//========update product/ shows specific product details
 app.get("/product/:id", verifyToken, async (req, res) => {
   let result = await Product.findOne({ _id: req.params.id });
   if (result) {
@@ -69,6 +73,8 @@ app.get("/product/:id", verifyToken, async (req, res) => {
     res.send({ result: "No record found." });
   }
 });
+
+//======================update product
 app.put("/product/:id", verifyToken, async (req, res) => {
   let result = await Product.updateOne(
     { _id: req.params.id },
@@ -77,6 +83,7 @@ app.put("/product/:id", verifyToken, async (req, res) => {
   res.send(result);
 });
 
+//--------------------search product-------------
 app.get("/search/:key", verifyToken, async (req, res) => {
   let result = await Product.find({
     $or: [
