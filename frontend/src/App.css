@@ -121,3 +121,10 @@
 .head{
   font-weight: bold;
 }
+#searchProduct{
+  width: 400px;
+  margin: 20px;
+  height: 40px;
+  border: 1px solid skyblue;
+  padding-left: 10px;
+}
