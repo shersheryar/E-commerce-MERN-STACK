@@ -40,13 +40,13 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.post("/add-product", async (req, res) => {
+app.post("/add-product", verifyToken, async (req, res) => {
   let product = new Product(req.body);
   let result = await product.save();
   res.send(result);
 });
 
-app.get("/products", async (req, res) => {
+app.get("/products", verifyToken, async (req, res) => {
   let products = await Product.find();
   console.log(products);
   if (products.length > 0) {
@@ -55,13 +55,13 @@ app.get("/products", async (req, res) => {
     res.send({ result: "No Products found" });
   }
 });
-app.delete("/product/:id", async (req, res) => {
+app.delete("/product/:id", verifyToken, async (req, res) => {
   const id = req.params.id;
   const result = await Product.deleteOne({ _id: id });
   res.send(result);
 });
 
-app.get("/product/:id", async (req, res) => {
+app.get("/product/:id", verifyToken, async (req, res) => {
   let result = await Product.findOne({ _id: req.params.id });
   if (result) {
     res.send(result);
@@ -69,7 +69,7 @@ app.get("/product/:id", async (req, res) => {
     res.send({ result: "No record found." });
   }
 });
-app.put("/product/:id", async (req, res) => {
+app.put("/product/:id", verifyToken, async (req, res) => {
   let result = await Product.updateOne(
     { _id: req.params.id },
     { $set: req.body }
@@ -77,7 +77,7 @@ app.put("/product/:id", async (req, res) => {
   res.send(result);
 });
 
-app.get("/search/:key", async (req, res) => {
+app.get("/search/:key", verifyToken, async (req, res) => {
   let result = await Product.find({
     $or: [
       { name: { $regex: req.params.key } },
@@ -88,4 +88,19 @@ app.get("/search/:key", async (req, res) => {
   });
   res.send(result);
 });
+function verifyToken(req, res, next) {
+  let token = req.headers["authorization"];
+  if (token) {
+    token = token.split(" ")[1];
+    Jwt.verify(token, jwtkey, (err, valid) => {
+      if (err) {
+        res.status(401).send({ result: "please provide valid token" });
+      } else {
+        next();
+      }
+    });
+  } else {
+    res.status(403).send({ result: "please add token with header" });
+  }
+}
 app.listen(5005);
